@@ -1,4 +1,7 @@
-Show me da article article.page
+File Format format.page
 
-Dis is main site
-with some text
+terminal-web
+
+Small browser for static text either in files in
+your filesystem or served to you on the web
+through http (yes, i know, insecure) or https.

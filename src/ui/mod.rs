@@ -36,7 +36,9 @@ impl Ui for ConsoleUi {
         if self.debug {
             println!("\nLink Targets:\n{}\n", links.iter().map(|(name, target)| format!("{}     {}", name, target)).collect::<Vec<String>>().join("\n"));
         }
-        println!("---\nLinks:\n{}", links.iter().map(|(link_title, _)| link_title.clone()).collect::<Vec<String>>().join("\n"));
+        if !links.is_empty() {
+            println!("---\nLinks:\n{}", links.iter().map(|(link_title, _)| link_title.clone()).collect::<Vec<String>>().join("\n"));
+        }
 
         let mut line = String::new();
         loop {

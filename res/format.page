@@ -1,0 +1,13 @@
+
+Files to use with this tool are very simple:
+
+They start off with a list of links. Every link
+takes up one line starting with the name of the
+link followed by a space and the link address.
+Since this link is determined as the rest of the
+line after the last space, the link itself cannot
+contain any spaces.
+
+Everything after the first empty of blank line is
+considered the contents of the page and is
+displayed in the terminal as is.
