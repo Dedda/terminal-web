@@ -1,6 +1,5 @@
 use crate::ui::{NavigationSelection, Ui};
 use crate::source::PageSource;
-use std::path::MAIN_SEPARATOR;
 
 pub struct Browser<U, S> where U: Ui, S: PageSource {
     ui: U,
@@ -18,7 +17,6 @@ impl<U, S> Browser<U, S> where U: Ui, S: PageSource {
     }
 
     pub fn run(&mut self, location: String) {
-        let location = location.replace("/", &MAIN_SEPARATOR.to_string());
         let mut referrer = None;
         self.history.push(location.clone());
         loop {

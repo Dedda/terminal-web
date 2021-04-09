@@ -59,3 +59,35 @@ fn link_from_line(line: String) -> (String, String) {
     let name = words.join(" ");
     (name, target)
 }
+
+pub struct WebSource;
+
+impl PageSource for WebSource {
+    fn load(&self, referrer: &Option<String>, address: &str) -> RenderedPage {
+        let address = if address.starts_with("http://") || address.starts_with("https://") {
+            address.into()
+        } else {
+            if let Some(refer) = referrer {
+                let mut split: Vec<&str> = refer.split("/").collect();
+                split.pop();
+                let mut address = address.clone();
+                loop {
+                    if address.starts_with("./") {
+                        address = address[2..].into();
+                    } else if address.starts_with("../") {
+                        address = address[3..].into();
+                        split.pop();
+                    } else {
+                        break;
+                    }
+                }
+                let parent: String = split.join("/");
+                format!("{}/{}", parent, address)
+            } else {
+                panic!("Relative link without referrer")
+            }
+        };
+        let source = reqwest::blocking::get(&address).unwrap().text().unwrap();
+        render_from_string(address, source)
+    }
+}
